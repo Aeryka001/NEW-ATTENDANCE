@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Attendance Monitoring</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Student Attendance Monitoring</h1>
+    </header>
+
+    <section class="card attendance-card" id="attendance-card">
+      <form id="attendance-form">
+        <label for="course">Course</label>
+        <select id="course" required disabled>
+          <option value="">-- Select course --</option>
+        </select>
+
+        <label for="year-level-block">Year Level / Block</label>
+        <select id="year-level-block" required disabled>
+          <option value="">-- Select year/block --</option>
+        </select>
+
+        <label for="student-name">Student Name</label>
+        <select id="student-name" required disabled>
+          <option value="">-- Select your name --</option>
+        </select>
+
+        <label for="attendance-type">Status</label>
+        <select id="attendance-type" required>
+          <option value="">-- Select status --</option>
+          <option value="Time In">Time In</option>
+          <option value="Time Out">Time Out</option>
+        </select>
+
+        <label for="attendance-time">Time</label>
+        <input id="attendance-time" type="text" readonly />
+
+        <div class="geo-status" id="geo-status">Checking location…</div>
+        <div class="lock-status" id="device-lock-status" aria-live="polite"></div>
+        <div class="submission-status" id="submission-status" aria-live="polite"></div>
+
+        <button id="submit-button" type="submit" disabled>Submit Attendance</button>
+        <button id="submit-without-location-button" class="secondary-button" type="button" hidden disabled>Submit with location unavailable</button>
+        <div class="submit-help" id="submit-help" aria-live="polite">Complete the form and wait for location verification.</div>
+      </form>
+    </section>
+
+    <section class="card" id="recent-card" hidden>
+      <h2>Last Recorded Entry</h2>
+      <div id="recent-entry">No entries submitted yet.</div>
+    </section>
+
+    <section class="admin-panel" id="admin-panel" aria-labelledby="admin-heading">
+      <div class="admin-heading-row">
+        <div class="admin-label">
+          <h2 id="admin-heading">Admin access</h2>
+          <p>Verify as admin, then override all restrictions or select only the restriction you need to bypass.</p>
+        </div>
+        <button id="admin-toggle" class="admin-access-button" type="button" title="Open administrator access">Admin</button>
+      </div>
+      <div id="admin-controls" class="admin-controls" hidden>
+        <label for="admin-code">Admin passcode</label>
+        <input id="admin-code" type="password" autocomplete="off" placeholder="Enter admin passcode" />
+        <button id="admin-unlock" class="secondary-button" type="button">Verify passcode</button>
+          <div id="admin-status" class="admin-status" aria-live="polite"></div>
+        <label class="admin-option" for="all-restrictions-override">
+          <input id="all-restrictions-override" type="checkbox" disabled />
+          <span>Override all restrictions</span>
+        </label>
+        <label class="admin-option" for="location-override">
+          <input id="location-override" type="checkbox" disabled />
+          <span>Override location restriction</span>
+        </label>
+        <label class="admin-option" for="time-override">
+          <input id="time-override" type="checkbox" disabled />
+          <span>Override attendance time restriction</span>
+        </label>
+        <label class="admin-option" for="device-lock-override">
+          <input id="device-lock-override" type="checkbox" disabled />
+          <span>Bypass this device's submission lock</span>
+        </label>
+        <div class="schedule-editor">
+          <h3>Attendance schedule</h3>
+          <p>Set the opening windows in Philippine time.</p>
+          <div class="schedule-grid">
+            <span>Open</span>
+            <span>Close</span>
+            <label class="sr-only" for="schedule-start-0">Window 1 opening time</label>
+            <input id="schedule-start-0" type="time" disabled />
+            <label class="sr-only" for="schedule-end-0">Window 1 closing time</label>
+            <input id="schedule-end-0" type="time" disabled />
+            <label class="sr-only" for="schedule-start-1">Window 2 opening time</label>
+            <input id="schedule-start-1" type="time" disabled />
+            <label class="sr-only" for="schedule-end-1">Window 2 closing time</label>
+            <input id="schedule-end-1" type="time" disabled />
+            <label class="sr-only" for="schedule-start-2">Window 3 opening time</label>
+            <input id="schedule-start-2" type="time" disabled />
+            <label class="sr-only" for="schedule-end-2">Window 3 closing time</label>
+            <input id="schedule-end-2" type="time" disabled />
+            <label class="sr-only" for="schedule-start-3">Window 4 opening time</label>
+            <input id="schedule-start-3" type="time" disabled />
+            <label class="sr-only" for="schedule-end-3">Window 4 closing time</label>
+            <input id="schedule-end-3" type="time" disabled />
+          </div>
+          <button id="save-schedule" class="secondary-button" type="button" disabled>Save schedule</button>
+          <button id="reset-schedule" class="secondary-button" type="button" disabled>Reset default schedule</button>
+          <div id="schedule-status" class="admin-status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <iframe name="attendance-submit-frame" title="Attendance submission" class="submission-frame"></iframe>
+  <script src="app.js"></script>
+</body>
+</html>
